@@ -43,4 +43,17 @@ function calcPorcentagemCashback(categoria, cliente) {
 
 //console.log(calcPorcentagemCashback("Eletrônicos", "SuperCliente"));
 
-export { buscarProduto, calcPorcentagemCashback };
+function calcCashbackItem(produto, quantidade, cliente) {
+    const percentual = calcPorcentagemCashback(produto.categoria, cliente);
+    const cashback = (produto.preco * quantidade) * percentual / 100;
+    return {
+        nome: produto.nome,
+        categoria: produto.categoria,
+        percentual: percentual,
+        valor: Number(cashback.toFixed(2))
+    };
+}
+
+//console.log(calcCashbackItem(buscarProduto("8f7c4e31-90d2-4b2e-b95b-2c6e91f4a0e3"), 2, "SuperCliente"));
+
+export { buscarProduto, calcPorcentagemCashback, calcCashbackItem };
