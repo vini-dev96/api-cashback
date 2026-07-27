@@ -1,0 +1,92 @@
+[
+  {
+    "id": "5c8e6d7a-1d52-4d34-90c8-fae0db6cb2c1",
+    "nome": "Smartphone Galaxy A56",
+    "categoria": "Eletrônicos",
+    "preco": 1899.90
+  },
+  {
+    "id": "a92f9b1d-7b84-4899-8c8f-1d3c7bde5d8e",
+    "nome": "Notebook Lenovo IdeaPad 3",
+    "categoria": "Eletrônicos",
+    "preco": 3499.99
+  },
+  {
+    "id": "0e5b3c91-fd2d-4a67-95f0-8a8d1b2d7f3e",
+    "nome": "Fone de Ouvido Bluetooth",
+    "categoria": "Eletrônicos",
+    "preco": 249.90
+  },
+  {
+    "id": "d8478a65-6c3d-42c2-96dd-0f4a5b91a2f7",
+    "nome": "Monitor Gamer 27 Polegadas",
+    "categoria": "Eletrônicos",
+    "preco": 1299.00
+  },
+  {
+    "id": "1f2e9cb4-9b98-4db5-8f93-7c6f14d85d5a",
+    "nome": "Clean Code",
+    "categoria": "Livros",
+    "preco": 89.90
+  },
+  {
+    "id": "b6d2fce3-1f1a-43b7-a5d5-39d5e69a1b9b",
+    "nome": "O Senhor dos Anéis",
+    "categoria": "Livros",
+    "preco": 119.90
+  },
+  {
+    "id": "3d5e4f89-5b73-4e41-bb67-48b2e5d6cf11",
+    "nome": "Hábitos Atômicos",
+    "categoria": "Livros",
+    "preco": 69.90
+  },
+  {
+    "id": "c19f6d7e-a4d5-44be-a1d2-9f0f81d2b6d9",
+    "nome": "Dom Casmurro",
+    "categoria": "Livros",
+    "preco": 34.90
+  },
+  {
+    "id": "8f7c4e31-90d2-4b2e-b95b-2c6e91f4a0e3",
+    "nome": "Lego Classic 500 Peças",
+    "categoria": "Brinquedos",
+    "preco": 279.90
+  },
+  {
+    "id": "ee1b5c62-6b57-4cf6-8a8e-5a97d6c2f41d",
+    "nome": "Quebra-Cabeça 1000 Peças",
+    "categoria": "Brinquedos",
+    "preco": 79.90
+  },
+  {
+    "id": "94a3fd28-1b2c-46fd-95bb-1e73a2df0b91",
+    "nome": "Carrinho de Controle Remoto",
+    "categoria": "Brinquedos",
+    "preco": 199.90
+  },
+  {
+    "id": "f2d6a9e0-7c0a-40d1-b8d9-4bfc83c6d5e2",
+    "nome": "Boneca Fashion",
+    "categoria": "Brinquedos",
+    "preco": 149.90
+  },
+  {
+    "id": "5b3d2e84-3d1b-4cb5-8d67-f12a7e3d90c4",
+    "nome": "Garrafa Térmica Inox",
+    "categoria": "Outros",
+    "preco": 89.90
+  },
+  {
+    "id": "7e94c6a1-2e75-4587-b5d4-9b2c5e8f71d0",
+    "nome": "Mochila Executiva",
+    "categoria": "Outros",
+    "preco": 159.90
+  },
+  {
+    "id": "d5f81e2c-6b73-47a8-9a9f-8c6d2e3b1f57",
+    "nome": "Cadeira de Escritório",
+    "categoria": "Outros",
+    "preco": 799.90
+  }
+]
