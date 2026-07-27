@@ -56,4 +56,17 @@ function calcCashbackItem(produto, quantidade, cliente) {
 
 //console.log(calcCashbackItem(buscarProduto("8f7c4e31-90d2-4b2e-b95b-2c6e91f4a0e3"), 2, "SuperCliente"));
 
-export { buscarProduto, calcPorcentagemCashback, calcCashbackItem };
+function calcBonus(subtotal, totalCashback) {
+    let bonus;
+    if ((subtotal - totalCashback) > 2000) {
+        bonus = totalCashback * 0.05;
+        if (bonus > 150) {
+            bonus = 150;
+        }
+    }
+    return bonus ? Number(bonus.toFixed(2)) : 0;
+}
+
+//console.log(calcBonus(2001));
+
+export { buscarProduto, calcPorcentagemCashback, calcCashbackItem, calcBonus };
