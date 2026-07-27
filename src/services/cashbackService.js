@@ -69,4 +69,53 @@ function calcBonus(subtotal, totalCashback) {
 
 //console.log(calcBonus(2001));
 
-export { buscarProduto, calcPorcentagemCashback, calcCashbackItem, calcBonus };
+function calcCashback({ cliente, itens }) {
+    const itensValidos = itens.map(item => {
+        const produto = buscarProduto(item.id);
+        if (!produto) {
+            return null;
+        }
+        return {
+            cashback: calcCashbackItem(produto, item.quantidade, cliente),
+            valorProduto: produto.preco * item.quantidade
+        };
+    })
+
+        .filter(item => item != null);
+
+    const subtotal = Number(itensValidos.reduce((acc, item) => acc + item.valorProduto, 0).toFixed(2));
+
+    const itensCalculados = itensValidos.map(item => item.cashback);
+
+    let totalCashback = itensValidos.reduce((acc, item) => acc + item.cashback.valor, 0);
+
+    totalCashback = Number(totalCashback.toFixed(2));
+
+    const bonus = calcBonus(subtotal, totalCashback);
+
+    let total = totalCashback + bonus;
+
+    total = Number(total.toFixed(2));
+
+    let valorFinal = subtotal - total;
+
+    valorFinal = Number(valorFinal.toFixed(2));
+
+    return {
+        subtotal,
+        cashback: { itens: itensCalculados, bonus, total },
+        valorFinal
+    };
+}
+
+/*console.log(calcCashback({
+    cliente: "regular",
+    itens: [
+        { ddad: "5c8e6d7a-1d52-4d34-90c8-fae0db6cb2c1", quantidade: 1 },
+        { nome: "1f2e9cb4-9b98-4db5-8f93-7c6f14d85d5a", quantidade: 4 },
+        { nome: "ee1b5c62-6b57-4cf6-8a8e-5a97d6c2f41d", quantidade: 1 }
+    ]
+}));
+*/
+
+export { buscarProduto, calcPorcentagemCashback, calcCashbackItem, calcBonus, calcCashback };
