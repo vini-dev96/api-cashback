@@ -117,12 +117,6 @@ Nenhuma alteração é necessária no `cashbackService.js`.
 
 Ajustar o `switch` dentro da função `calcPorcentagemCashback`, em `cashbackService.js`, adicionando o novo `case` com a categoria e o percentual correspondente.
 
-## Testes
-
-```bash
-node --test
-```
-
 Os testes cobrem os casos de fronteira já mapeados durante o desenvolvimento:
 - Percentual por categoria, incluindo o teto de 10% com SuperCliente
 - Gatilho e cálculo do bônus progressivo (incluindo o limite de R$150)
