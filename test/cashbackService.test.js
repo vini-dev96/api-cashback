@@ -3,7 +3,8 @@ import assert from 'node:assert';
 import {
     calcPorcentagemCashback,
     calcCashbackItem,
-    travar2Casas
+    calcBonus,
+    calcCashback
 } from "../src/services/cashbackService.js";
 
 // calcPorcentagemCashback
@@ -58,4 +59,22 @@ test('trunca o valor do cashback para 2 casas decimais, sem arredondar para cima
 
     // 33.33 * 9% = 2.9997 -> travado em 2 casas decimais fica 2.99, não 3.00
     assert.strictEqual(resultado.valor, 2.99);
+});
+
+// calcBonus
+
+test('não aplica bônus quando (subtotal - totalCashback) é menor que 2000', () => {
+    assert.strictEqual(calcBonus(1500, 100), 0);
+});
+
+test('não aplica bônus no limite exato de 2000 (condição é estritamente maior)', () => {
+    assert.strictEqual(calcBonus(2000, 0), 0);
+});
+
+test('aplica 5% de bônus quando valor final ultrapassa 2000 (exemplo do PDF)', () => {
+    assert.strictEqual(calcBonus(4449.39, 364.14), 18.21);
+});
+
+test('bônus é limitado a 150 mesmo com cashback muito alto', () => {
+    assert.strictEqual(calcBonus(50000, 10000), 150);
 });
