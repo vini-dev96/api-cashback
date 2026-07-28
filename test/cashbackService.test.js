@@ -78,3 +78,66 @@ test('aplica 5% de bônus quando valor final ultrapassa 2000 (exemplo do PDF)', 
 test('bônus é limitado a 150 mesmo com cashback muito alto', () => {
     assert.strictEqual(calcBonus(50000, 10000), 150);
 });
+
+// calcCashback (orquestração completa, com repository fake)
+
+const fakeRepository = {
+    buscarPorId: async (id) => {
+        const produtos = {
+            'produto-eletronico': { nome: 'Produto Eletrônico', categoria: 'Eletrônicos', preco: 100 },
+            'produto-livro': { nome: 'Produto Livro', categoria: 'Livros', preco: 50 }
+        };
+        return produtos[id] || null;
+    }
+};
+
+test('calcula cashback completo com um item válido, cliente regular', async () => {
+    const resultado = await calcCashback(
+        { cliente: 'regular', itens: [{ id: 'produto-eletronico', quantidade: 2 }] },
+        fakeRepository
+    );
+
+    assert.strictEqual(resultado.subtotal, 200);
+    assert.strictEqual(resultado.cashback.total, 10);
+    assert.strictEqual(resultado.cashback.bonus, 0);
+    assert.strictEqual(resultado.valorFinal, 190);
+});
+
+test('calcula cashback com múltiplos itens, somando subtotal e cashback corretamente', async () => {
+    const resultado = await calcCashback(
+        {
+            cliente: 'regular',
+            itens: [
+                { id: 'produto-eletronico', quantidade: 1 }, // 100 * 5% = 5
+                { id: 'produto-livro', quantidade: 2 }        // 100 * 9% = 9
+            ]
+        },
+        fakeRepository
+    );
+
+    assert.strictEqual(resultado.subtotal, 200);
+    assert.strictEqual(resultado.cashback.total, 14);
+    assert.strictEqual(resultado.valorFinal, 186);
+});
+
+test('item com id inexistente é ignorado, sem quebrar o cálculo', async () => {
+    const resultado = await calcCashback(
+        { cliente: 'regular', itens: [{ id: 'id-que-nao-existe', quantidade: 1 }] },
+        fakeRepository
+    );
+
+    assert.strictEqual(resultado.subtotal, 0);
+    assert.strictEqual(resultado.cashback.itens.length, 0);
+    assert.strictEqual(resultado.cashback.total, 0);
+    assert.strictEqual(resultado.valorFinal, 0);
+});
+
+test('lista de itens vazia retorna tudo zerado, sem quebrar', async () => {
+    const resultado = await calcCashback(
+        { cliente: 'regular', itens: [] },
+        fakeRepository
+    );
+
+    assert.strictEqual(resultado.subtotal, 0);
+    assert.strictEqual(resultado.valorFinal, 0);
+});
