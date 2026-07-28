@@ -51,6 +51,9 @@ function calcCashbackItem(produto, quantidade, cliente) {
 
 //console.log(calcCashbackItem(buscarProduto("8f7c4e31-90d2-4b2e-b95b-2c6e91f4a0e3"), 2, "SuperCliente"));
 
+//Após aplicar o cashback, se o valor final for superior a R$ 2000,00 , acrescente 5% de cashback
+//bonus - Limitado a R$ 150 reais;
+
 function calcBonus(subtotal, totalCashback) {
     let bonus;
     if ((subtotal - totalCashback) > 2000) {
@@ -80,9 +83,7 @@ async function calcCashback({ cliente, itens }, produtoRepository) {
 
     const itensCalculados = itensValidos.map(item => item.cashback);
 
-    let totalCashback = itensValidos.reduce((acc, item) => acc + item.cashback.valor, 0);
-
-    totalCashback = Number(totalCashback.toFixed(2));
+    const totalCashback = Number(itensValidos.reduce((acc, item) => acc + item.cashback.valor, 0).toFixed(2));
 
     const bonus = calcBonus(subtotal, totalCashback);
 
@@ -111,4 +112,4 @@ async function calcCashback({ cliente, itens }, produtoRepository) {
 }));
 */
 
-export { calcPorcentagemCashback, calcCashbackItem, calcBonus, calcCashback };
+export { calcCashback };

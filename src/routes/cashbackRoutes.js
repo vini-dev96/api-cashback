@@ -17,11 +17,11 @@ router.post('/cashback', async (req, res) => {
 
     const itemInvalido = itens.some(i =>
         !Number.isInteger(i.quantidade) ||
-        i.quantidade <= 0
+        i.quantidade < 0
     );
 
     if (itemInvalido) {
-        return res.status(400).json({ erro: "Quantidade deve ser maior que 0 e inteiro" })
+        return res.status(400).json({ erro: "Quantidade inserida é inválida" })
     }
 
     const resultado = await calcCashback(req.body, produtoRepositoryJson);
