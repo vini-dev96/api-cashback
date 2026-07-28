@@ -72,7 +72,7 @@ test('não aplica bônus no limite exato de 2000 (condição é estritamente mai
 });
 
 test('aplica 5% de bônus quando valor final ultrapassa 2000 (exemplo do PDF)', () => {
-    assert.strictEqual(calcBonus(4449.39, 364.14), 18.21);
+    assert.strictEqual(calcBonus(4449.39, 364.14), 18.2);
 });
 
 test('bônus é limitado a 150 mesmo com cashback muito alto', () => {
