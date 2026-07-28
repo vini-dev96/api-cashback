@@ -28,6 +28,7 @@ Receber uma lista de produtos comprados (id + quantidade) e retornar:
 - **Node.js** (22+) — runtime
 - **Express** — framework HTTP para a API
 - **ES Modules** (`import`/`export`) — padrão de módulos do projeto
+- **node:test** — testes unitários (nativo do Node, sem dependência externa)
 - Nenhuma biblioteca externa para os cálculos (Regra de negócio)
 - Dados de produtos hoje armazenados em um arquivo JSON, isolados por um Repository (ver seção de arquitetura)
 
@@ -117,12 +118,19 @@ Nenhuma alteração é necessária no `cashbackService.js`.
 
 Ajustar o `switch` dentro da função `calcPorcentagemCashback`, em `cashbackService.js`, adicionando o novo `case` com a categoria e o percentual correspondente.
 
+## Testes
+
+```bash
+node --test
+```
+
 Os testes cobrem os casos de fronteira já mapeados durante o desenvolvimento:
 - Percentual por categoria, incluindo o teto de 10% com SuperCliente
-- Gatilho e cálculo do bônus progressivo (incluindo o limite de R$150)
+- Gatilho e cálculo do bônus progressivo aplicado após o subtotal - cashback (incluindo o limite de R$150)
 - Orquestração completa do cálculo, usando um repository fake (sem dependência do JSON real)
 
 ## Manutenção
 
-- Ao alterar qualquer regra de cálculo, rodar testes.
+- Ao alterar qualquer regra de cálculo, rodar os testes unitários antes de subir a alteração
+- Ao adicionar uma nova categoria, atualizar tanto o `switch` de percentuais quanto os testes correspondentes
 - Manter a separação de camadas (routes → services → repositories) ao evoluir o projeto, evitando lógica de negócio dentro das rotas ou acesso a dados dentro do service
