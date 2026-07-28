@@ -40,8 +40,6 @@ function calcPorcentagemCashback(categoria, cliente) {
     return desconto;
 }
 
-//console.log(calcPorcentagemCashback("Eletrônicos", "SuperCliente"));
-
 function calcCashbackItem(produto, quantidade, cliente) {
     const percentual = calcPorcentagemCashback(produto.categoria, cliente);
     const cashback = (produto.preco * quantidade) * percentual / 100;
@@ -52,8 +50,6 @@ function calcCashbackItem(produto, quantidade, cliente) {
         valor: travar2Casas(cashback)
     };
 }
-
-//console.log(calcCashbackItem(buscarProduto("8f7c4e31-90d2-4b2e-b95b-2c6e91f4a0e3"), 2, "SuperCliente"));
 
 //Após aplicar o cashback, se o valor final for superior a R$ 2000,00 , acrescente 5% de cashback
 //bonus - Limitado a R$ 150 reais;
@@ -68,8 +64,6 @@ function calcBonus(subtotal, totalCashback) {
     }
     return bonus ? travar2Casas(bonus) : 0;
 }
-
-//console.log(calcBonus(2001));
 
 async function calcCashback({ cliente, itens }, produtoRepository) {
     const itensValidos = [];
@@ -105,15 +99,5 @@ async function calcCashback({ cliente, itens }, produtoRepository) {
         valorFinal
     };
 }
-
-/*console.log(calcCashback({
-    cliente: "regular",
-    itens: [
-        { ddad: "5c8e6d7a-1d52-4d34-90c8-fae0db6cb2c1", quantidade: 1 },
-        { nome: "1f2e9cb4-9b98-4db5-8f93-7c6f14d85d5a", quantidade: 4 },
-        { nome: "ee1b5c62-6b57-4cf6-8a8e-5a97d6c2f41d", quantidade: 1 }
-    ]
-}));
-*/
 
 export { calcPorcentagemCashback, calcBonus, calcCashbackItem, travar2Casas, calcCashback };
