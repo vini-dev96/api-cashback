@@ -1,8 +1,3 @@
-import produtos from "../data/base-itens.json" with { type: "json" };
-
-function buscarProduto(id) {
-    return produtos.find(p => p.id === id);
-}
 
 /*
 Eletrônicos - 5%;
@@ -69,19 +64,17 @@ function calcBonus(subtotal, totalCashback) {
 
 //console.log(calcBonus(2001));
 
-function calcCashback({ cliente, itens }) {
-    const itensValidos = itens.map(item => {
-        const produto = buscarProduto(item.id);
-        if (!produto) {
-            return null;
-        }
-        return {
+async function calcCashback({ cliente, itens }, produtoRepository) {
+    const itensValidos = [];
+    for (const item of itens) {
+        const produto = await produtoRepository.buscarPorId(item.id);
+        if (!produto) continue;
+
+        itensValidos.push({
             cashback: calcCashbackItem(produto, item.quantidade, cliente),
             valorProduto: produto.preco * item.quantidade
-        };
-    })
-
-        .filter(item => item != null);
+        });
+    }
 
     const subtotal = Number(itensValidos.reduce((acc, item) => acc + item.valorProduto, 0).toFixed(2));
 
@@ -118,4 +111,4 @@ function calcCashback({ cliente, itens }) {
 }));
 */
 
-export { buscarProduto, calcPorcentagemCashback, calcCashbackItem, calcBonus, calcCashback };
+export { calcPorcentagemCashback, calcCashbackItem, calcBonus, calcCashback };
