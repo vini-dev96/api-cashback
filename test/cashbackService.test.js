@@ -1,10 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import {
-    calcPorcentagemCashback,
-    calcCashbackItem,
-    calcBonus,
-    calcCashback
+    calcPorcentagemCashback
 } from "../src/services/cashbackService.js";
 
 // calcPorcentagemCashback

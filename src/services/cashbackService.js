@@ -112,4 +112,4 @@ async function calcCashback({ cliente, itens }, produtoRepository) {
 }));
 */
 
-export { calcCashback };
+export { calcPorcentagemCashback, calcBonus, calcCashbackItem, calcCashback };
