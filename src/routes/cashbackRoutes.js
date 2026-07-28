@@ -15,6 +15,15 @@ router.post('/cashback', async (req, res) => {
         return res.status(400).json({ erro: "Quantidade menor que zero não é permitido" })
     }
 
+    const itemInvalido = itens.some(i =>
+        !Number.isInteger(i.quantidade) ||
+        i.quantidade <= 0
+    );
+
+    if (itemInvalido) {
+        return res.status(400).json({ erro: "Quantidade deve ser maior que 0 e inteiro" })
+    }
+
     const resultado = await calcCashback(req.body, produtoRepositoryJson);
     res.json(resultado);
 });
