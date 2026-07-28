@@ -6,6 +6,10 @@ Brinquedos - 8%;
 Outros - 1%;
 */
 
+function travar2Casas(valor) {
+    return Math.floor(valor * 100) / 100;
+}
+
 function calcPorcentagemCashback(categoria, cliente) {
 
     let desconto;
@@ -45,7 +49,7 @@ function calcCashbackItem(produto, quantidade, cliente) {
         nome: produto.nome,
         categoria: produto.categoria,
         percentual: percentual,
-        valor: Number(cashback.toFixed(2))
+        valor: travar2Casas(cashback)
     };
 }
 
@@ -62,7 +66,7 @@ function calcBonus(subtotal, totalCashback) {
             bonus = 150;
         }
     }
-    return bonus ? Number(bonus.toFixed(2)) : 0;
+    return bonus ? travar2Casas(bonus) : 0;
 }
 
 //console.log(calcBonus(2001));
@@ -79,21 +83,21 @@ async function calcCashback({ cliente, itens }, produtoRepository) {
         });
     }
 
-    const subtotal = Number(itensValidos.reduce((acc, item) => acc + item.valorProduto, 0).toFixed(2));
+    const subtotal = travar2Casas(itensValidos.reduce((acc, item) => acc + item.valorProduto, 0));
 
     const itensCalculados = itensValidos.map(item => item.cashback);
 
-    const totalCashback = Number(itensValidos.reduce((acc, item) => acc + item.cashback.valor, 0).toFixed(2));
+    const totalCashback = travar2Casas(itensValidos.reduce((acc, item) => acc + item.cashback.valor, 0));
 
     const bonus = calcBonus(subtotal, totalCashback);
 
     let total = totalCashback + bonus;
 
-    total = Number(total.toFixed(2));
+    total = travar2Casas(total);
 
     let valorFinal = subtotal - total;
 
-    valorFinal = Number(valorFinal.toFixed(2));
+    valorFinal = travar2Casas(valorFinal);
 
     return {
         subtotal,
@@ -112,4 +116,4 @@ async function calcCashback({ cliente, itens }, produtoRepository) {
 }));
 */
 
-export { calcPorcentagemCashback, calcBonus, calcCashbackItem, calcCashback };
+export { calcPorcentagemCashback, calcBonus, calcCashbackItem, travar2Casas, calcCashback };

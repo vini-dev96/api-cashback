@@ -2,7 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import {
     calcPorcentagemCashback,
-    calcCashbackItem
+    calcCashbackItem,
+    travar2Casas
 } from "../src/services/cashbackService.js";
 
 // calcPorcentagemCashback
@@ -51,10 +52,10 @@ test('calcula o valor do cashback de um item corretamente', () => {
     assert.strictEqual(resultado.categoria, 'Eletrônicos');
 });
 
-test('arredonda o valor do cashback para 2 casas decimais', () => {
+test('trunca o valor do cashback para 2 casas decimais, sem arredondar para cima', () => {
     const produto = { nome: 'Produto Teste', categoria: 'Livros', preco: 33.33 };
     const resultado = calcCashbackItem(produto, 1, 'regular');
 
-    // 33.33 * 9% = 2.9997 -> arredonda para 3.00
-    assert.strictEqual(resultado.valor, 3);
+    // 33.33 * 9% = 2.9997 -> travado em 2 casas decimais fica 2.99, não 3.00
+    assert.strictEqual(resultado.valor, 2.99);
 });
